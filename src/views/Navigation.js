@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "../assets/style/navigation.scss";
 import { Link } from "react-router-dom";
-import fire from "../services/firebase";
 import LogoutModal from "../components/modal/LogoutModal";
 
 function Navigation() {
@@ -16,12 +15,7 @@ function Navigation() {
   }
 
   function submitModal() {
-    fire
-      .auth()
-      .signOut()
-      .then(() => {
-        setIsShowing(false);
-      });
+    console.log("logout");
   }
 
   return (

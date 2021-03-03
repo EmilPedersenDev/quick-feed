@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Input from "../components/input/Input";
-import fire from "../services/firebase";
 import "../assets/style/login.scss";
 
 function Login() {
@@ -9,12 +8,6 @@ function Login() {
 
   function submit(e) {
     e.preventDefault();
-    fire
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .catch((e) => {
-        console.error("Incorrect password or username", e);
-      });
     console.log("Submitted!");
   }
   return (

@@ -7,17 +7,12 @@ import Team from "./views/Team";
 import Manager from "./views/Manager";
 import Login from "./views/Login";
 import Clients from "./views/Clients";
-import fire from "./services/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsLoggedIn } from "./actions";
 
 function App() {
   const isLoggedIn = useSelector((state) => state.authReducer.isLoggedIn);
   const dispatch = useDispatch();
-
-  fire.auth().onAuthStateChanged((user) => {
-    dispatch(setIsLoggedIn(user));
-  });
 
   console.log(isLoggedIn);
 
