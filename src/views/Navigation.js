@@ -1,8 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import "../assets/style/navigation.scss";
 import { Link } from "react-router-dom";
+import fire from "../services/firebase";
+import LogoutModal from "../components/modal/LogoutModal";
 
 function Navigation() {
+  const [isShowing, setIsShowing] = useState(false);
+
+  function showModal() {
+    setIsShowing(true);
+  }
+
+  function closeModal(e) {
+    setIsShowing(false);
+  }
+
+  function submitModal() {
+    fire
+      .auth()
+      .signOut()
+      .then(() => {
+        setIsShowing(false);
+      });
+  }
+
   return (
     <nav>
       <ul className="nav-container">
@@ -23,7 +44,7 @@ function Navigation() {
           <Link to="/clients">Clients</Link>
         </li>
         <li className="nav-item">
-          <button>Logout</button>
+          <button onClick={showModal}>Logout</button>
         </li>
         <li className="nav-item">
           <Link to="/team">
@@ -45,6 +66,11 @@ function Navigation() {
           </ul>
         </li>
       </ul>
+      <LogoutModal
+        isShowing={isShowing}
+        onClose={closeModal}
+        onSubmit={submitModal}
+      ></LogoutModal>
     </nav>
   );
 }

@@ -1,0 +1,11 @@
+input {
+  background: transparent;
+  padding: 10px;
+  width: 100%;
+  margin: 10px 0;
+  &::placeholder {
+    font-weight: normal;
+    font-style: normal;
+    color: black;
+  }
+}
