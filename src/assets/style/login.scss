@@ -1,0 +1,21 @@
+.login {
+  width: 100%;
+  max-width: 500px;
+  min-height: 400px;
+  border: 2px solid;
+  border-image-source: linear-gradient(
+    135deg,
+    #ffe2cd,
+    #fec2e7 35%,
+    #c9e7ff 75%,
+    #86fef4
+  );
+  border-image-slice: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  h1 {
+    text-align: center;
+  }
+}
