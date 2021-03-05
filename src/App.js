@@ -7,6 +7,7 @@ import "./assets/style/App.scss";
 import Navigation from "./views/Navigation";
 import Home from "./views/Home";
 import Team from "./views/Team";
+import TeamMember from "./views/TeamMember";
 import Manager from "./views/Manager";
 import Clients from "./views/Clients";
 import AdProvider from "./services/AdProvider";
@@ -35,8 +36,9 @@ function App() {
             <Navigation />
             <Switch>
               <Route path="/" exact component={Home} />
-              <Route path="/team" component={Team} />
-              <Route path="/manager/:id" component={Manager} />
+              <Route path="/team" exact component={Team} />
+              <Route path="/team/:id" component={TeamMember} />
+              <Route path="/manager" component={Manager} />
               <Route path="/clients" component={Clients} />
             </Switch>
           </React.Fragment>

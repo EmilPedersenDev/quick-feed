@@ -32,7 +32,7 @@ function Navigation({ login }) {
       <ul className="nav-container">
         {isLoggedIn && (
           <li className="nav-item">
-            <Link to="/manager/id">
+            <Link to="/manager">
               <img src="profile.svg" alt="" />
               <span>{user}</span>
             </Link>
