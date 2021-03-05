@@ -1,33 +1,35 @@
-import React from "react";
-import "./assets/style/App.scss";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+import "./assets/style/App.scss";
+
 import Navigation from "./views/Navigation";
 import Home from "./views/Home";
 import Team from "./views/Team";
 import Manager from "./views/Manager";
-import Login from "./views/Login";
 import Clients from "./views/Clients";
-import fire from "./services/firebase";
-import { useDispatch, useSelector } from "react-redux";
-import { setIsLoggedIn } from "./actions";
+import AdProvider from "./services/AdProvider";
 
 function App() {
-  const isLoggedIn = useSelector((state) => state.authReducer.isLoggedIn);
-  const dispatch = useDispatch();
+  const AzureAdProvider = new AdProvider();
+  const isLoggedIn = useSelector((state) => state.authReducer.isAuthenticated);
 
-  fire.auth().onAuthStateChanged((user) => {
-    dispatch(setIsLoggedIn(user));
-  });
+  useEffect(() => {
+    AzureAdProvider.getAllAccounts();
+  }, []);
 
-  console.log(isLoggedIn);
+  function login() {
+    AzureAdProvider.login();
+  }
 
   return (
     <Router>
       <div className="App">
         {!isLoggedIn ? (
-          <Switch>
-            <Route path="/" component={Login} />
-          </Switch>
+          <React.Fragment>
+            <Navigation login={login} />
+          </React.Fragment>
         ) : (
           <React.Fragment>
             <Navigation />
