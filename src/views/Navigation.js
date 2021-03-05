@@ -33,16 +33,9 @@ function Navigation({ login }) {
         {isLoggedIn && (
           <li className="nav-item">
             <Link to="/manager/id">
-              <p>Manager</p>
+              <img src="profile.svg" alt="" />
+              <span>{user}</span>
             </Link>
-            <ul className="nav-sub-list">
-              <li className="nav-sub-list-item">
-                <Link to="/manager/id">
-                  <img src="profile.svg" alt="" />
-                  <span>{user}</span>
-                </Link>
-              </li>
-            </ul>
           </li>
         )}
         {isLoggedIn && (
