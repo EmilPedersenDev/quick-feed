@@ -1,6 +1,7 @@
 import { config } from "./config";
 import { PublicClientApplication } from "@azure/msal-browser";
-import { isAuthenticated } from "../store/actions/index";
+import { isAuthenticated, setUser, setTeam } from "../store/actions/index";
+import { getTeam, getUserDetails } from "./GraphProvider";
 import store from "../store";
 
 class AdProvider {
@@ -31,10 +32,16 @@ class AdProvider {
       let accessToken = await this.getAccessToken(config.scopes);
 
       if (accessToken) {
+        let user = await getUserDetails(accessToken);
+        let team = await getTeam(accessToken);
+        console.log(team);
         store.dispatch(isAuthenticated(true));
+        store.dispatch(setUser(user));
+        store.dispatch(setTeam(team));
       }
     } catch (err) {
-      store.dispatch(isAuthenticated(false));
+      this.clearStore();
+      console.error(err);
     }
   }
 
@@ -77,7 +84,7 @@ class AdProvider {
       await this.getUserProfile();
       // store.dispatch(isAuthenticated(true));
     } catch (err) {
-      store.dispatch(isAuthenticated(false));
+      this.clearStore();
       console.error(err);
     }
   }
@@ -85,10 +92,16 @@ class AdProvider {
   async logout() {
     try {
       await this.publicClientApplication.logout();
-      store.dispatch(isAuthenticated(false));
+      this.clearStore();
     } catch (err) {
       console.error(err);
     }
+  }
+
+  clearStore() {
+    store.dispatch(isAuthenticated(false));
+    store.dispatch(setUser({}));
+    store.dispatch(setTeam([]));
   }
 
   normalizeError(error) {

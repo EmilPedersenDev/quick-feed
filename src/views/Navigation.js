@@ -8,6 +8,11 @@ import AdProvider from "../services/AdProvider";
 function Navigation({ login }) {
   const AzureAdProvider = new AdProvider();
   const isLoggedIn = useSelector((state) => state.authReducer.isAuthenticated);
+  const user = useSelector((state) => {
+    if (Object.keys(state.authReducer.user).length !== 0) {
+      return state.authReducer.user.displayName;
+    }
+  });
   const [isShowing, setIsShowing] = useState(false);
 
   function showModal() {
@@ -34,7 +39,7 @@ function Navigation({ login }) {
               <li className="nav-sub-list-item">
                 <Link to="/manager/id">
                   <img src="profile.svg" alt="" />
-                  <span>Emil</span>
+                  <span>{user}</span>
                 </Link>
               </li>
             </ul>
@@ -42,7 +47,7 @@ function Navigation({ login }) {
         )}
         {isLoggedIn && (
           <li className="nav-item">
-            <Link to="/clients">Clients</Link>
+            <Link to="/clients">Invite Clients</Link>
           </li>
         )}
         <li className="nav-item">
@@ -57,20 +62,6 @@ function Navigation({ login }) {
             <Link to="/team">
               <p>Team</p>
             </Link>
-            <ul className="nav-sub-list">
-              <li className="nav-sub-list-item">
-                <Link to="/team">
-                  <img src="profile.svg" alt="" />
-                  <span>Nisse</span>
-                </Link>
-              </li>
-              <li className="nav-sub-list-item">
-                <Link to="/team">
-                  <img src="profile.svg" alt="" />
-                  <span>Nisse</span>
-                </Link>
-              </li>
-            </ul>
           </li>
         )}
       </ul>
